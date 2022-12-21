@@ -1,20 +1,19 @@
-const entrada = require('prompt-sync')();
+const prompt = require("prompt-sync")();
 
-var nome = entrada("Digite seu nome: ");
 
-var salariobruto = parseFloat(entrada("Digite o Salário Bruto: "));
+var n1 = parseInt(prompt("Digite o primeiro número: "));
 
-if (salariobruto > 0 && salariobruto <= 1903.98) {
-  var ir = salariobruto * 0.05;
+var n2 = parseInt(prompt("Digite o segundo número: "));
+
+
+if (n1 > 0 && n2 >0){
+  if (n1 % 2 == 0 && n2 % 2 == 0) {
+    console.log ("Os Números são Pares")
+  } else if ((n1 % 2 == 1 && n2 % 2 == 1)){
+    console.log ("Os Números são Impares")
+  } else {
+    console.log ("Existe um número par ou impar")
+  }
+} else {
+  console.log("Existe pelo menos um número negativo ou igual a Zero");
 }
-else if (salariobruto <= 2826.65) {
-  var ir = salariobruto * 0.075;
-}
-else {
-  var ir = salariobruto * 0.15;
-}
-
-var salario_liquido = salariobruto - ir;
-console.log("Salario Liquido: R$", salario_liquido);
-
-
