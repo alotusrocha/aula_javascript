@@ -2,7 +2,7 @@ const prompt = require('prompt-sync')();
 var salarios = [];
 var soma = 0;
 var media;
-var qtd_menores = 0;
+var qtd_menores;
 
 
 
@@ -17,17 +17,8 @@ for (var i = 1; i <= 5; i++) {
 
   }
   var renda_percapta = salario_bruto / (dependentes + 1);
-  if (renda_percapta >= 500) {
-    if (salario_bruto > 0 && salario_bruto <= 1903.98) {
-      var ir = salario_bruto * 0.05
-    } else if (salario_bruto <= 2826.65) {
-      var ir = salario_bruto * 0.075;
-    } else {
-      var ir = salario_bruto * 0.15
-    }
-  } else {
-    var ir = 0;
-  }
+  
+  var ir =  calcular_ir(salario_bruto, renda_percapta);
 
   var salario_liquido = salario_bruto - ir;
 
@@ -40,11 +31,33 @@ for (var i = 1; i <= 5; i++) {
 
 media = soma / 5;
 
-for (var i = 0; i <= 4; i++) {
-  if (salarios[i] < media) {
-    qtd_menores = qtd_menores + 1;
-  }
-}
+qtd_menores = calcular_qtd_menores(salarios, media);
+
 
 console.log("A média de Salário é R$ ", media);
 console.log("A quantidade de pessoas com Salário Inferior a média é: ", qtd_menores);
+
+function calcular_ir(salario_bruto, renda_percapta) {
+if (renda_percapta >= 500) {
+    if (salario_bruto > 0 && salario_bruto <= 1903.98) {
+      var ir = salario_bruto * 0.05
+    } else if (salario_bruto <= 2826.65) {
+      var ir = salario_bruto * 0.075;
+    } else {
+      var ir = salario_bruto * 0.15
+    }
+  } else {
+    var ir = 0;
+  }
+  return ir;
+}
+
+function calcular_qtd_menores(salarios, media) {
+    var qtd_menores = 0;
+    for (var i = 0; i <= 4; i++) {
+        if (salarios[i] < media) {
+            qtd_menores = qtd_menores + 1;
+        }
+    }
+    return qtd_menores;
+}
